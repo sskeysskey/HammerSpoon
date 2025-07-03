@@ -59,6 +59,13 @@ hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
+hs.hotkey.bind({"ctrl"}, "M", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 TextSniper 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Googlemap_input.scpt"
+  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
 hs.hotkey.bind({"ctrl", "Shift"}, "Z", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行有道翻译脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Youdao.scpt"
