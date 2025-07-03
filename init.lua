@@ -160,26 +160,34 @@ end)
 -- [无需改动] 此部分的逻辑与上一个脚本类似，通过 AppleScript 在 Terminal 中执行命令，
 -- 已经实现了非阻塞的效果。
 hs.hotkey.bind({"ctrl"}, "6", function()
+  -- 简单的 shell 转义函数
   local function shellQuote(str)
     return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
   end
-  
+
   hs.notify.new({
     title = "Hammerspoon",
-    informativeText = "正在依次执行三份同步脚本…"
+    informativeText = "正在依次执行三份同步脚本，并随后执行备份脚本…"
   }):send()
 
   local home = os.getenv("HOME")
-  local scripts = {
-    home .. "/Documents/sh/github_sync_pythoncode.sh",
-    home .. "/Documents/sh/github_sync_finance.sh",
-    home .. "/Documents/sh/github_sync_xcode.sh",
-    home .. "/Documents/sh/github_sync_HammerSpoon.sh",
+
+  -- 准备要在 Terminal 中顺序执行的命令列表
+  local commands = {
+    -- 原来的四个同步脚本
+    "bash -lc " .. shellQuote(home .. "/Documents/sh/github_sync_pythoncode.sh"),
+    "bash -lc " .. shellQuote(home .. "/Documents/sh/github_sync_finance.sh"),
+    "bash -lc " .. shellQuote(home .. "/Documents/sh/github_sync_xcode.sh"),
+    "bash -lc " .. shellQuote(home .. "/Documents/sh/github_sync_HammerSpoon.sh"),
+    -- 新增：Backup_Syncing.py
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3 "
+      .. shellQuote(home .. "/Documents/Financial_System/Operations/Backup_Syncing.py")
   }
 
-  local combined = table.concat(scripts, " && ")
-  local cmd = "bash -lc " .. shellQuote(combined)
-
+  -- 用 && 串联成一个复合命令
+  local combined = table.concat(commands, " && ")
+  -- 最终要喂给 osascript 的命令
+  -- 这里不需要再加 bash -lc ，因为前面每一项都已自行调用 bash -lc（除了 python3，那直接可执行）
   local appleScript = ([[
 tell application "Terminal"
   activate
@@ -193,7 +201,7 @@ tell application "Terminal"
     display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
   end try
 end tell
-]]):format(cmd, cmd)
+]]):format(combined, combined)
 
   local ok, err = hs.osascript.applescript(appleScript)
   if not ok then
