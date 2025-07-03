@@ -6,13 +6,11 @@ end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "D", function()
   hs.application.launchOrFocus("Reminders")
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="提醒事项 (Reminders) 已启动"}):send()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "S", function()
   hs.application.launchOrFocus("Notes")
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="备忘录 (Notes) 已启动"}):send()
 end)
 
@@ -28,7 +26,6 @@ hs.hotkey.bind({"ctrl"}, "/", function()
 end)
 
 hs.hotkey.bind({"ctrl"}, "'", function()
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="正在移动鼠标..."}):send()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
@@ -38,7 +35,6 @@ hs.hotkey.bind({"ctrl"}, "'", function()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "U", function()
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="正在打开highlow.txt..."}):send()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
@@ -50,7 +46,6 @@ end)
 hs.hotkey.bind({"ctrl"}, "W", function()
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
   local scriptPath = "/Users/yanzhang/Documents/Financial_System/Query/Panel.py"
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="正在运行 Panel.py..."}):send()
   -- 同样使用 hs.task 异步执行 Python
   hs.task.new(pythonPath, nil, {scriptPath}):start()
@@ -58,51 +53,39 @@ end)
 
 -- 运行某个AppleScript代码
 hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 TextSniper 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/TextSniper.scpt"
-  -- 原为 hs.execute(...)
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl", "Shift"}, "Z", function()
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="正在执行有道翻译脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Youdao.scpt"
-  -- 原为 hs.execute(...)
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "A", function()
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Stock_Chart 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Stock_Chart.scpt"
-  -- 已经是 hs.task，保持不变
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "Q", function()
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="正在执行搜索脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Search.scpt"
-  -- 原为 hs.execute(...)
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "1", function()
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Ask_AI 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Ask_AI.scpt"
-  -- 原为 hs.execute(...)
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "B", function()
-  -- 这里的提示信息似乎是复制粘贴错误，已为您修正
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 MemoryClearner 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/MemoryClearner.scpt"
-  -- 原为 hs.execute(...)
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
