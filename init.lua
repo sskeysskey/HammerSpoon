@@ -175,6 +175,49 @@ hs.hotkey.bind({"ctrl"}, "3", function()
   end
 end)
 
+hs.hotkey.bind({"cmd"}, "K", function()
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Hammerspoon",
+    informativeText = "正在执行 AppServer.py 脚本…"
+  }):send()
+
+  local home = os.getenv("HOME")
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  local scriptPath = home .. "/LocalServer/AppServer.py"
+
+  local fullCommand = pythonPath
+                      .. " "
+                      .. shellQuote(scriptPath)
+
+  -- 构造要喂给 osascript 的 AppleScript
+  local appleScript = [[
+    tell application "Terminal"
+      activate
+      try
+        if not (exists window 1) then
+          do script "]] .. fullCommand .. [["
+        else
+          do script "]] .. fullCommand .. [[" in window 1
+        end if
+      on error errMsg number errNum
+        display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
+      end try
+    end tell
+  ]]
+
+  local ok, result, raw = hs.osascript.applescript(appleScript)
+  if not ok then
+    hs.notify.new({
+      title = "Hammerspoon",
+      informativeText = "脚本执行出错: " .. (result or "unknown")
+    }):send()
+  end
+end)
+
 -- [无需改动] 此部分的逻辑与上一个脚本类似，通过 AppleScript 在 Terminal 中执行命令，
 -- 已经实现了非阻塞的效果。
 hs.hotkey.bind({"ctrl"}, "6", function()
