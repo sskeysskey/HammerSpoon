@@ -34,7 +34,7 @@ hs.hotkey.bind({"ctrl"}, "'", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "U", function()
+hs.hotkey.bind({"ctrl", "alt"}, "X", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在打开highlow.txt..."}):send()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
@@ -62,6 +62,13 @@ end)
 hs.hotkey.bind({"ctrl"}, "M", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 TextSniper 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Googlemap_input.scpt"
+  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"alt", "cmd"}, "[", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Restore270 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Restore270.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
