@@ -66,6 +66,13 @@ hs.hotkey.bind({"ctrl"}, "M", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
+hs.hotkey.bind({"ctrl", "alt"}, "0", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_Title.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Trans_Title.scpt"
+  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
 hs.hotkey.bind({"alt", "cmd"}, "[", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Restore270 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Restore270.scpt"
