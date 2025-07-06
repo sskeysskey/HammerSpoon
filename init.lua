@@ -181,7 +181,7 @@ hs.hotkey.bind({"ctrl"}, "3", function()
   end
 end)
 
-hs.hotkey.bind({"ctrl"}, ",", function()
+hs.hotkey.bind({"alt", "cmd"}, "C", function()
   local function shellQuote(str)
     return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
   end
