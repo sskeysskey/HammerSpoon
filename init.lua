@@ -181,7 +181,7 @@ hs.hotkey.bind({"ctrl"}, "3", function()
   end
 end)
 
-hs.hotkey.bind({"alt", "cmd"}, "C", function()
+hs.hotkey.bind({"ctrl"}, ",", function()
   local function shellQuote(str)
     return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
   end
@@ -205,9 +205,9 @@ hs.hotkey.bind({"alt", "cmd"}, "C", function()
       activate
       try
         if not (exists window 1) then
-          do script "]] .. fullCommand .. [["
+          do script "]] .. fullCommand .. [[" in window
         else
-          do script "]] .. fullCommand .. [[" in window 1
+          do script "]] .. fullCommand .. [["
         end if
       on error errMsg number errNum
         display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
@@ -260,9 +260,9 @@ tell application "Terminal"
   activate
   try
     if not (exists window 1) then
-      do script "%s"
-    else
       do script "%s" in window 1
+    else
+      do script "%s"
     end if
   on error errMsg number errNum
     display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
