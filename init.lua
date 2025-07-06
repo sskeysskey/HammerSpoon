@@ -60,7 +60,7 @@ hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
 end)
 
 hs.hotkey.bind({"ctrl"}, "M", function()
-  hs.notify.new({title="Hammerspoon", informativeText="正在执行 TextSniper 脚本..."}):send()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Googlemap_input 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Googlemap_input.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
@@ -118,9 +118,15 @@ hs.hotkey.bind({"ctrl"}, "1", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "B", function()
+hs.hotkey.bind({"ctrl"}, "[", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 MemoryClearner 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/MemoryClearner.scpt"
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl"}, "]", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Bob 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Bob.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
@@ -175,7 +181,7 @@ hs.hotkey.bind({"ctrl"}, "3", function()
   end
 end)
 
-hs.hotkey.bind({"cmd"}, "K", function()
+hs.hotkey.bind({"ctrl"}, ",", function()
   local function shellQuote(str)
     return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
   end
