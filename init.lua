@@ -241,7 +241,7 @@ hs.hotkey.bind({"ctrl"}, "6", function()
 
   hs.notify.new({
     title = "Hammerspoon",
-    informativeText = "正在依次执行三份同步脚本，并随后执行备份脚本…"
+    informativeText = "正在依次执行四份同步脚本，并随后执行备份脚本…"
   }):send()
 
   local home = os.getenv("HOME")
@@ -262,19 +262,36 @@ hs.hotkey.bind({"ctrl"}, "6", function()
   local combined = table.concat(commands, " && ")
   -- 最终要喂给 osascript 的命令
   -- 这里不需要再加 bash -lc ，因为前面每一项都已自行调用 bash -lc（除了 python3，那直接可执行）
+  -- 这个逻辑会先判断 Terminal 是否在运行，再决定如何创建窗口
   local appleScript = ([[
-tell application "Terminal"
-  try
-    if not (exists window 1) then
-      do script "%s" in window 1
+    -- 使用 "System Events" 来检查 "Terminal" 进程是否存在
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    if isRunning then
+      -- 如果 Terminal 正在运行，激活它并新建一个标签页/窗口来执行脚本
+      tell application "Terminal"
+        activate
+        try
+          do script "%s"
+        on error errMsg number errNum
+          display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
+        end try
+      end tell
     else
-      do script "%s"
+      -- 如果 Terminal 没有运行，先激活它（这会启动应用并创建第一个窗口）
+      -- 然后，在那个新建的第一个窗口中执行脚本，以避免打开第二个窗口
+      tell application "Terminal"
+        activate
+        try
+          do script "%s" in window 1
+        on error errMsg number errNum
+          display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
+        end try
+      end tell
     end if
-  on error errMsg number errNum
-    display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
-  end try
-end tell
-]]):format(combined, combined)
+  ]]):format(combined, combined) -- 注意：这里需要两个 combined，分别对应 if 和 else 分支中的 %s
 
   local ok, err = hs.osascript.applescript(appleScript)
   if not ok then
