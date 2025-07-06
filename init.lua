@@ -199,20 +199,27 @@ hs.hotkey.bind({"ctrl"}, ",", function()
                       .. " "
                       .. shellQuote(scriptPath)
 
-  -- 构造要喂给 osascript 的 AppleScript
+  -- 构造基于您建议的、新的AppleScript逻辑
   local appleScript = [[
-    tell application "Terminal"
-      activate
-      try
-        if not (exists window 1) then
-          do script "]] .. fullCommand .. [[" in window
-        else
-          do script "]] .. fullCommand .. [["
-        end if
-      on error errMsg number errNum
-        display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
-      end try
+    -- 使用 "System Events" 来检查 "Terminal" 进程是否存在
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
     end tell
+
+    if isRunning then
+      -- 如果 Terminal 正在运行，激活它并新建一个标签页/窗口来执行脚本
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [["
+      end tell
+    else
+      -- 如果 Terminal 没有运行，先激活它（这会启动应用并创建第一个窗口）
+      -- 然后，在那个新建的第一个窗口中执行脚本，以避免打开第二个窗口
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [[" in window 1
+      end tell
+    end if
   ]]
 
   local ok, result, raw = hs.osascript.applescript(appleScript)
@@ -257,7 +264,6 @@ hs.hotkey.bind({"ctrl"}, "6", function()
   -- 这里不需要再加 bash -lc ，因为前面每一项都已自行调用 bash -lc（除了 python3，那直接可执行）
   local appleScript = ([[
 tell application "Terminal"
-  activate
   try
     if not (exists window 1) then
       do script "%s" in window 1
