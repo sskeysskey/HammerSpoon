@@ -209,7 +209,7 @@ hs.hotkey.bind({"ctrl"}, ",", function()
 
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local scriptPath = home .. "/LocalServer/AppServer.py"
+  local scriptPath = home .. "/Users/yanzhang/Documents/python_code/Modules/AppServer.py"
 
   local fullCommand = pythonPath
                       .. " "
