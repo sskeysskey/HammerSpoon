@@ -34,7 +34,7 @@ hs.hotkey.bind({"ctrl"}, "'", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "X", function()
+hs.hotkey.bind({"ctrl"}, "X", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在打开highlow.txt..."}):send()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
@@ -49,6 +49,22 @@ hs.hotkey.bind({"ctrl"}, "W", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在运行 Panel.py..."}):send()
   -- 同样使用 hs.task 异步执行 Python
   hs.task.new(pythonPath, nil, {scriptPath}):start()
+end)
+
+-- 运行带参数的 AppleScript (移植自 Automator)
+hs.hotkey.bind({"ctrl"}, "S", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_PythonFile 脚本..."}):send()
+
+  -- 要执行的 AppleScript 脚本路径
+  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Insert_PythonFile.scpt"
+  
+  -- 要传递给 AppleScript 脚本的参数
+  local pythonScriptParameter = "/Users/yanzhang/Documents/Financial_System/Operations/Insert_Events.py"
+
+  -- 使用 hs.task 异步执行带参数的 AppleScript
+  -- 第一个参数是 osascript 的路径
+  -- 第三个参数是一个 table，第一个元素是要执行的脚本路径，后续元素都是要传递给该脚本的参数
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath, pythonScriptParameter}):start()
 end)
 
 -- 运行某个AppleScript代码
