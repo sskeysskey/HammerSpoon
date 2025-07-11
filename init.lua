@@ -270,8 +270,8 @@ hs.hotkey.bind({"ctrl"}, "6", function()
     "bash -lc " .. shellQuote(home .. "/Documents/sh/github_sync_xcode.sh"),
     "bash -lc " .. shellQuote(home .. "/Documents/sh/github_sync_HammerSpoon.sh"),
     -- 新增：Backup_Syncing.py
-    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3 "
-      .. shellQuote(home .. "/Documents/Financial_System/Operations/Backup_Syncing.py")
+    -- "/Library/Frameworks/Python.framework/Versions/Current/bin/python3 "
+    --   .. shellQuote(home .. "/Documents/Financial_System/Operations/Backup_Syncing.py")
   }
 
   -- 用 && 串联成一个复合命令
