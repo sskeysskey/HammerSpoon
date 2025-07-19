@@ -34,6 +34,15 @@ hs.hotkey.bind({"ctrl"}, "'", function()
   ):start()
 end)
 
+hs.hotkey.bind({"ctrl", "alt"}, "A", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在打开财报编辑界面..."}):send()
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil,
+    {"/Users/yanzhang/Documents/Financial_System/Operations/Insert_Earning_auto.py"}
+  ):start()
+end)
+
 hs.hotkey.bind({"ctrl"}, "X", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在打开highlow.txt..."}):send()
   hs.task.new(
