@@ -25,13 +25,23 @@ hs.hotkey.bind({"ctrl"}, "/", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl"}, "D", function()
+hs.hotkey.bind({"ctrl", "alt"}, "A", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在打开 Earning_Similar..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil, -- 我们不需要在任务完成时执行回调函数
     {"/Users/yanzhang/Documents/Financial_System/Query/Check_Earning_Similar.py"}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "W", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在打开 tags_weights..."}):send()
+  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil, -- 我们不需要在任务完成时执行回调函数
+    {"/Users/yanzhang/Documents/Financial_System/Operations/Editor_tags_weight.py"}
   ):start()
 end)
 
@@ -44,7 +54,7 @@ hs.hotkey.bind({"ctrl"}, "'", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "A", function()
+hs.hotkey.bind({"ctrl"}, "D", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在打开财报编辑界面..."}):send()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
