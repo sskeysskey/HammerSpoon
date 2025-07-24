@@ -104,6 +104,13 @@ hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
+hs.hotkey.bind({"ctrl", "alt"}, "E", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_small_poe.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Trans_small_poe.scpt.scpt"
+  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
 hs.hotkey.bind({"ctrl"}, ";", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 singbox 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/singbox.scpt"
