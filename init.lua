@@ -25,7 +25,7 @@ hs.hotkey.bind({"ctrl"}, "/", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "A", function()
+hs.hotkey.bind({"ctrl", "Shift"}, "A", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在打开 Earning_Similar..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
   hs.task.new(
@@ -183,7 +183,7 @@ hs.hotkey.bind({"ctrl"}, "[", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
-hs.hotkey.bind({"ctrl"}, "]", function()
+hs.hotkey.bind({"ctrl", "Shift"}, "Q", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Bob 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Bob.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
