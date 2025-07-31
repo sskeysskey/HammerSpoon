@@ -21,7 +21,7 @@ hs.hotkey.bind({"ctrl"}, "/", function()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil, -- 我们不需要在任务完成时执行回调函数
-    {"/Users/yanzhang/Documents/Financial_System/Operations/Update_Split2DB.py"}
+    {"/Users/yanzhang/Coding/Financial_System/Operations/Update_Split2DB.py"}
   ):start()
 end)
 
@@ -31,7 +31,7 @@ hs.hotkey.bind({"ctrl", "cmd"}, "Z", function()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil, -- 我们不需要在任务完成时执行回调函数
-    {"/Users/yanzhang/Documents/Financial_System/Operations/Editor_Symbol_Tags.py"}
+    {"/Users/yanzhang/Coding/Financial_System/Operations/Editor_Symbol_Tags.py"}
   ):start()
 end)
 
@@ -41,7 +41,7 @@ hs.hotkey.bind({"ctrl", "Shift"}, "A", function()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil, -- 我们不需要在任务完成时执行回调函数
-    {"/Users/yanzhang/Documents/Financial_System/Query/Check_Earning_Similar.py"}
+    {"/Users/yanzhang/Coding/Financial_System/Query/Check_Earning_Similar.py"}
   ):start()
 end)
 
@@ -51,7 +51,7 @@ hs.hotkey.bind({"ctrl", "alt"}, "W", function()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil, -- 我们不需要在任务完成时执行回调函数
-    {"/Users/yanzhang/Documents/Financial_System/Operations/Editor_tags_weight.py"}
+    {"/Users/yanzhang/Coding/Financial_System/Operations/Editor_tags_weight.py"}
   ):start()
 end)
 
@@ -60,7 +60,7 @@ hs.hotkey.bind({"ctrl"}, "'", function()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil,
-    {"/Users/yanzhang/Documents/python_code/Mouse_move.py"}
+    {"/Users/yanzhang/Coding/python_code/Mouse_move.py"}
   ):start()
 end)
 
@@ -69,7 +69,7 @@ hs.hotkey.bind({"ctrl"}, "D", function()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil,
-    {"/Users/yanzhang/Documents/Financial_System/Operations/Insert_Earning_auto.py"}
+    {"/Users/yanzhang/Coding/Financial_System/Operations/Insert_Earning_auto.py"}
   ):start()
 end)
 
@@ -78,13 +78,13 @@ hs.hotkey.bind({"ctrl"}, "X", function()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil,
-    {"/Users/yanzhang/Documents/Financial_System/Query/Check_HighLow.py"}
+    {"/Users/yanzhang/Coding/Financial_System/Query/Check_HighLow.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "W", function()
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local scriptPath = "/Users/yanzhang/Documents/Financial_System/Query/Panel.py"
+  local scriptPath = "/Users/yanzhang/Coding/Financial_System/Query/Panel.py"
   hs.notify.new({title="Hammerspoon", informativeText="正在运行 Panel.py..."}):send()
   -- 同样使用 hs.task 异步执行 Python
   hs.task.new(pythonPath, nil, {scriptPath}):start()
@@ -95,10 +95,10 @@ hs.hotkey.bind({"ctrl"}, "S", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_PythonFile 脚本..."}):send()
 
   -- 要执行的 AppleScript 脚本路径
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Insert_PythonFile.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Insert_PythonFile.scpt"
   
   -- 要传递给 AppleScript 脚本的参数
-  local pythonScriptParameter = "/Users/yanzhang/Documents/Financial_System/Operations/Insert_Events.py"
+  local pythonScriptParameter = "/Users/yanzhang/Coding/Financial_System/Operations/Insert_Events.py"
 
   -- 使用 hs.task 异步执行带参数的 AppleScript
   -- 第一个参数是 osascript 的路径
@@ -109,93 +109,93 @@ end)
 -- 运行某个AppleScript代码
 hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 TextSniper 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/TextSniper.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/TextSniper.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "E", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_small_poe.scpt 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Trans_small_poe.scpt.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_small_poe.scpt.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, ";", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 singbox 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/singbox.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/singbox.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "M", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Googlemap_input 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Googlemap_input.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Googlemap_input.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "0", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_Title.scpt 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Trans_Title.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_Title.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"alt", "cmd"}, "[", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Restore270 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Restore270.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Restore270.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"alt", "cmd"}, "X", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 TextSniper 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Baidu_Call.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Baidu_Call.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"alt", "ctrl"}, "L", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行Find Code..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Find_Code.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Find_Code.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl", "Shift"}, "Z", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行有道翻译脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Youdao.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Youdao.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "A", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Stock_Chart 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Stock_Chart.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Stock_Chart.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "Q", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行搜索脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Search.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Search.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "1", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Ask_AI 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Ask_AI.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Ask_AI.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "[", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 MemoryClearner 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/MemoryClearner.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/MemoryClearner.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl", "Shift"}, "Q", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Bob 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Documents/ScriptEditor/Bob.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Bob.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
@@ -216,7 +216,7 @@ hs.hotkey.bind({"ctrl"}, "3", function()
 
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local scriptPath = home .. "/Documents/Financial_System/Selenium/YF_MarketCapPEShare.py"
+  local scriptPath = home .. "/Coding/Financial_System/Selenium/YF_MarketCapPEShare.py"
   local params = "--mode normal"
 
   local fullCommand = pythonPath
@@ -312,7 +312,7 @@ hs.hotkey.bind({"ctrl", "alt"}, "7", function()
 
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local scriptPath = home .. "/Documents/Financial_System/Operations/Backup_Syncing.py"
+  local scriptPath = home .. "/Coding/Financial_System/Operations/Backup_Syncing.py"
 
   local fullCommand = pythonPath
                       .. " "
@@ -362,7 +362,7 @@ hs.hotkey.bind({"ctrl", "alt"}, "'", function()
 
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local scriptPath = home .. "/Documents/Financial_System/Query/Custom_Filter.py"
+  local scriptPath = home .. "/Coding/Financial_System/Query/Custom_Filter.py"
 
   local fullCommand = pythonPath
                       .. " "
