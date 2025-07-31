@@ -25,6 +25,16 @@ hs.hotkey.bind({"ctrl"}, "/", function()
   ):start()
 end)
 
+hs.hotkey.bind({"ctrl"}, "L", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Prompt_Creator..."}):send()
+  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil, -- 我们不需要在任务完成时执行回调函数
+    {"/Users/yanzhang/Coding/python_code/Prompt_Creator.py"}
+  ):start()
+end)
+
 hs.hotkey.bind({"ctrl", "cmd"}, "Z", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Editor_Symbol_Tags..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
