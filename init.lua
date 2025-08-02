@@ -126,7 +126,7 @@ end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "E", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_small_poe.scpt 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_small_poe.scpt.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_small_poe.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
@@ -310,14 +310,64 @@ hs.hotkey.bind({"ctrl"}, ",", function()
   end
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "7", function()
+hs.hotkey.bind({"ctrl", "alt"}, "6", function()
   local function shellQuote(str)
     return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
   end
 
   hs.notify.new({
-    title = "Hammerspoon",
-    informativeText = "正在执行 AppServer.py 脚本…"
+    title = "txt2pdf",
+    informativeText = "正在执行 脚本…"
+  }):send()
+
+  local home = os.getenv("HOME")
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  local scriptPath = home .. "/Coding/python_code/txt2pdf.py"
+
+  local fullCommand = pythonPath
+                      .. " "
+                      .. shellQuote(scriptPath)
+
+  -- 构造基于您建议的、新的AppleScript逻辑
+  local appleScript = [[
+    -- 使用 "System Events" 来检查 "Terminal" 进程是否存在
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    if isRunning then
+      -- 如果 Terminal 正在运行，激活它并新建一个标签页/窗口来执行脚本
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [["
+      end tell
+    else
+      -- 如果 Terminal 没有运行，先激活它（这会启动应用并创建第一个窗口）
+      -- 然后，在那个新建的第一个窗口中执行脚本，以避免打开第二个窗口
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [[" in window 1
+      end tell
+    end if
+  ]]
+
+  local ok, result, raw = hs.osascript.applescript(appleScript)
+  if not ok then
+    hs.notify.new({
+      title = "txt2pdf",
+      informativeText = "脚本执行出错: " .. (result or "unknown")
+    }):send()
+  end
+end)
+
+hs.hotkey.bind({"ctrl", "cmd"}, "7", function()
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Backup_syncing",
+    informativeText = "正在执行 脚本…"
   }):send()
 
   local home = os.getenv("HOME")
@@ -354,8 +404,63 @@ hs.hotkey.bind({"ctrl", "alt"}, "7", function()
   local ok, result, raw = hs.osascript.applescript(appleScript)
   if not ok then
     hs.notify.new({
-      title = "Hammerspoon",
+      title = "backup_syncing",
       informativeText = "脚本执行出错: " .. (result or "unknown")
+    }):send()
+  end
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "7", function()
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Analyse_season",
+    informativeText = "正在执行 脚本…"
+  }):send()
+
+  local home = os.getenv("HOME")
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  local script1 = home .. "/Coding/Financial_System/Query/Analyse_Earning_noSeason.py"
+  local script2    = home .. "/Coding/Financial_System/Query/Analyse_Earning_Season.py"
+
+  -- 方式 B：分别下两次 do script（各自独立窗口／标签）
+  local cmd1 = pythonPath .. " " .. shellQuote(script1)
+  local cmd2 = pythonPath .. " " .. shellQuote(script2)
+
+  --[[ ======================= 方式 B：分别两次 do script ======================= ]]
+  local appleB = [[
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    tell application "Terminal"
+      activate
+      if isRunning then
+        do script "]] .. cmd1 .. [[" in window 1
+        delay 0.2
+        do script "]] .. cmd2 .. [[" in window 1
+      else
+        -- 首次激活时会建 window 1
+        do script "]] .. cmd1 .. [[" in window 1
+        delay 0.2
+        do script "]] .. cmd2 .. [[" in window 1
+      end if
+    end tell
+  ]]
+
+  local ok, result = hs.osascript.applescript(appleB)
+
+  if not ok then
+    hs.notify.new({
+      title = "Analyse_Earning",
+      informativeText = "执行出错：" .. (result or "unknown")
+    }):send()
+  else
+    hs.notify.new({
+      title = "Analyse_Earning",
+      informativeText = "脚本执行完毕"
     }):send()
   end
 end)
@@ -410,7 +515,6 @@ hs.hotkey.bind({"ctrl", "alt"}, "'", function()
   end
 end)
 
--- [无需改动] 此部分的逻辑与上一个脚本类似，通过 AppleScript 在 Terminal 中执行命令，
 -- 已经实现了非阻塞的效果。
 hs.hotkey.bind({"ctrl"}, "6", function()
   -- 简单的 shell 转义函数
