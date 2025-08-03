@@ -272,7 +272,7 @@ hs.hotkey.bind({"ctrl"}, ",", function()
 
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local scriptPath = home .. "/LocalServer/AppServer.py"
+  local scriptPath = home .. "/Coding/LocalServer/AppServer.py"
 
   local fullCommand = pythonPath
                       .. " "
@@ -322,7 +322,7 @@ hs.hotkey.bind({"ctrl", "alt"}, "6", function()
 
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local scriptPath = home .. "/Coding/python_code/txt2pdf.py"
+  local scriptPath = home .. "/Coding/python_code/txt2json.py"
 
   local fullCommand = pythonPath
                       .. " "
