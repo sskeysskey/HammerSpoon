@@ -35,13 +35,23 @@ hs.hotkey.bind({"ctrl"}, "2", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
+hs.hotkey.bind({"ctrl", "Shift"}, "Q", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 search similar tag..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil, -- 我们不需要在任务完成时执行回调函数
     {"/Users/yanzhang/Coding/Financial_System/Query/Search_Similar_Tag.py"}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert panel.json"}):send()
+  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil, -- 我们不需要在任务完成时执行回调函数
+    {"/Users/yanzhang/Coding/Financial_System/Operations/Insert_Panel.py"}
   ):start()
 end)
 
@@ -140,13 +150,6 @@ end)
 hs.hotkey.bind({"ctrl", "alt"}, "E", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_small_poe.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_small_poe.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
-  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
-end)
-
-hs.hotkey.bind({"ctrl", "Shift"}, "Q", function()
-  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Bob 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Bob.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
