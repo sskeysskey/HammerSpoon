@@ -45,7 +45,7 @@ hs.hotkey.bind({"ctrl", "Shift"}, "Q", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
+hs.hotkey.bind({"ctrl", "cmd"}, "Z", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert panel.json"}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
   hs.task.new(
@@ -65,7 +65,7 @@ hs.hotkey.bind({"ctrl"}, "L", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "cmd"}, "Z", function()
+hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Editor_Tags..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
   hs.task.new(
