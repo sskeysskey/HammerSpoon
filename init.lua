@@ -469,12 +469,12 @@ hs.hotkey.bind({"ctrl", "alt"}, "7", function()
       activate
       if isRunning then
         do script "]] .. cmd1 .. [[" in window 1
-        delay 1
+        delay 2
         do script "]] .. cmd2 .. [[" in window 1
       else
         -- 首次激活时会建 window 1
         do script "]] .. cmd1 .. [[" in window 1
-        delay 1
+        delay 2
         do script "]] .. cmd2 .. [[" in window 1
       end if
     end tell
