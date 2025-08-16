@@ -452,8 +452,8 @@ hs.hotkey.bind({"ctrl", "alt"}, "7", function()
 
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local script1 = home .. "/Coding/Financial_System/Query/Analyse_Earning_no_Season.py"
-  local script2    = home .. "/Coding/Financial_System/Query/Analyse_Earning_Season.py"
+  local script1 = home .. "/Coding/Financial_System/Query/Analyse_Earning_Season.py"
+  local script2    = home .. "/Coding/Financial_System/Query/Analyse_Earning_no_Season.py"
 
   -- 方式 B：分别下两次 do script（各自独立窗口／标签）
   local cmd1 = pythonPath .. " " .. shellQuote(script1)
@@ -469,12 +469,12 @@ hs.hotkey.bind({"ctrl", "alt"}, "7", function()
       activate
       if isRunning then
         do script "]] .. cmd1 .. [[" in window 1
-        delay 0.2
+        delay 1
         do script "]] .. cmd2 .. [[" in window 1
       else
         -- 首次激活时会建 window 1
         do script "]] .. cmd1 .. [[" in window 1
-        delay 0.2
+        delay 1
         do script "]] .. cmd2 .. [[" in window 1
       end if
     end tell
