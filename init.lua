@@ -95,6 +95,15 @@ hs.hotkey.bind({"ctrl", "alt"}, "A", function()
   ):start()
 end)
 
+hs.hotkey.bind({"ctrl"}, "1", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在 执行volume监控程序..."}):send()
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil,
+    {"/Users/yanzhang/Coding/Financial_System/Query/Volume_Monitor.py"}
+  ):start()
+end)
+
 hs.hotkey.bind({"ctrl"}, "'", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在 移动鼠标..."}):send()
   hs.task.new(
@@ -245,7 +254,7 @@ hs.hotkey.bind({"ctrl"}, "Q", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
-hs.hotkey.bind({"ctrl"}, "1", function()
+hs.hotkey.bind({"ctrl"}, "4", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Ask_AI 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Ask_AI.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
