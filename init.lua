@@ -180,13 +180,6 @@ hs.hotkey.bind({"ctrl", "alt"}, "Q", function()
 end)
 
 -- 运行某个AppleScript代码
-hs.hotkey.bind({"ctrl", "alt"}, "T", function()
-  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_small_poe.scpt 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_small_poe.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
-  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
-end)
-
 hs.hotkey.bind({"ctrl", "alt"}, "E", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 API_Trans.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/API_Trans_small.scpt"
