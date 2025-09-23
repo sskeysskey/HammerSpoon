@@ -504,10 +504,12 @@ hs.hotkey.bind({"ctrl", "alt"}, "7", function()
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
   local script1 = home .. "/Coding/Financial_System/Query/Analyse_Earning_Season.py"
   local script2    = home .. "/Coding/Financial_System/Query/Analyse_Earning_no_Season.py"
+  local script3 = home .. "/Coding/Financial_System/Query/Check_OverSell.py"
 
   -- 方式 B：分别下两次 do script（各自独立窗口／标签）
   local cmd1 = pythonPath .. " " .. shellQuote(script1)
   local cmd2 = pythonPath .. " " .. shellQuote(script2)
+  local cmd3 = pythonPath .. " " .. shellQuote(script3)
 
   --[[ ======================= 方式 B：分别两次 do script ======================= ]]
   local appleB = [[
@@ -521,11 +523,15 @@ hs.hotkey.bind({"ctrl", "alt"}, "7", function()
         do script "]] .. cmd1 .. [[" in window 1
         delay 2
         do script "]] .. cmd2 .. [[" in window 1
+        delay 2
+        do script "]] .. cmd3 .. [[" in window 1
       else
         -- 首次激活时会建 window 1
         do script "]] .. cmd1 .. [[" in window 1
         delay 2
         do script "]] .. cmd2 .. [[" in window 1
+        delay 2
+        do script "]] .. cmd3 .. [[" in window 1
       end if
     end tell
   ]]
