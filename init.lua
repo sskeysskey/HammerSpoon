@@ -220,7 +220,7 @@ end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "0", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_Title.scpt 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_Title.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/API_Trans_Title.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
