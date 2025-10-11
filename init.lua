@@ -35,6 +35,16 @@ hs.hotkey.bind({"ctrl"}, "2", function()
   ):start()
 end)
 
+hs.hotkey.bind({"ctrl", "alt"}, "5", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Check_Earning_dup..."}):send()
+  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil, -- 我们不需要在任务完成时执行回调函数
+    {"/Users/yanzhang/Coding/Financial_System/Query/Check_Earning_dup.py"}
+  ):start()
+end)
+
 hs.hotkey.bind({"ctrl", "Shift"}, "Q", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 search similar tag..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
@@ -268,12 +278,6 @@ end)
 hs.hotkey.bind({"ctrl"}, "Q", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行搜索脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Search.scpt"
-  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
-end)
-
-hs.hotkey.bind({"ctrl"}, "4", function()
-  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Ask_AI 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Ask_AI.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
