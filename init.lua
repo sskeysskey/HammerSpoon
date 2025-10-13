@@ -91,7 +91,7 @@ hs.hotkey.bind({"alt", "cmd"}, "Z", function()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil, -- 我们不需要在任务完成时执行回调函数
-    {"/Users/yanzhang/Coding/Financial_System/Backup/Check_Earning_Similar.py"}
+    {"/Users/yanzhang/Coding/Financial_System/Query/Check_Earning_Similar.py"}
   ):start()
 end)
 
