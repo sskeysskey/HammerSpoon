@@ -35,7 +35,7 @@ hs.hotkey.bind({"ctrl"}, "2", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "5", function()
+hs.hotkey.bind({"ctrl", "alt"}, "7", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Check_Earning_dup..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
   hs.task.new(
@@ -394,7 +394,7 @@ hs.hotkey.bind({"ctrl"}, ",", function()
   end
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "6", function()
+hs.hotkey.bind({"ctrl", "alt"}, "5", function()
   local function shellQuote(str)
     return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
   end
@@ -444,7 +444,7 @@ hs.hotkey.bind({"ctrl", "alt"}, "6", function()
   end
 end)
 
-hs.hotkey.bind({"ctrl", "cmd"}, "7", function()
+hs.hotkey.bind({"ctrl", "cmd"}, "6", function()
   local function shellQuote(str)
     return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
   end
@@ -494,7 +494,7 @@ hs.hotkey.bind({"ctrl", "cmd"}, "7", function()
   end
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "7", function()
+hs.hotkey.bind({"ctrl", "alt"}, "6", function()
   local function shellQuote(str)
     return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
   end
@@ -664,7 +664,7 @@ hs.hotkey.bind({"ctrl"}, "4", function()
 end)
 
 -- 已经实现了非阻塞的效果。
-hs.hotkey.bind({"ctrl"}, "6", function()
+hs.hotkey.bind({"ctrl"}, "5", function()
   -- 简单的 shell 转义函数
   local function shellQuote(str)
     return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
