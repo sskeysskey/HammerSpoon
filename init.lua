@@ -142,7 +142,7 @@ hs.hotkey.bind({"ctrl"}, "D", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl"}, "X", function()
+hs.hotkey.bind({"ctrl"}, "K", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在打开highlow.txt..."}):send()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
