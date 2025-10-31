@@ -207,6 +207,13 @@ hs.hotkey.bind({"ctrl", "alt"}, "P", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
+hs.hotkey.bind({"alt", "cmd"}, "P", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_doubao.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_doubao.scpt"
+  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
 hs.hotkey.bind({"ctrl"}, ";", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 karing 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Karing.scpt"
