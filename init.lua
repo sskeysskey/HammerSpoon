@@ -276,6 +276,18 @@ hs.hotkey.bind({"ctrl", "Shift"}, "Z", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
+hs.hotkey.bind({"ctrl"}, "Z", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行查询富途..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Stock_CheckFutu.scpt"
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl"}, "O", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行查询Seeking Alpha..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Stock_seekingalpha.scpt"
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
 hs.hotkey.bind({"ctrl"}, "A", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Stock_Chart 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Stock_Chart.scpt"
