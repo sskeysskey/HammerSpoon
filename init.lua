@@ -698,13 +698,14 @@ hs.hotkey.bind({"ctrl"}, "5", function()
 
   -- 准备要在 Terminal 中顺序执行的命令列表
   local commands = {
-    -- 原来的四个同步脚本
+    -- 原来的五个同步脚本
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_pythoncode.sh"),
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_finance.sh"),
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_xcode.sh"),
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_HammerSpoon.sh"),
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_scripteditor.sh"),
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_shell.sh"),
+    "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_xcode.sh"),
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_android.sh"),
     -- 新增：Backup_Syncing.py
   }
