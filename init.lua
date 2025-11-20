@@ -758,6 +758,7 @@ hs.hotkey.bind({"ctrl"}, "5", function()
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_xcode.sh"),
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_website.sh"),
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_android.sh"),
+    "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_LocalServer.sh"),
     -- 新增：Backup_Syncing.py
   }
 
