@@ -216,7 +216,7 @@ end)
 
 hs.hotkey.bind({"ctrl"}, ";", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 karing 脚本..."}):send()
-  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Karing.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Karing1.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
