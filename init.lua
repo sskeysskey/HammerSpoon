@@ -35,6 +35,26 @@ hs.hotkey.bind({"ctrl"}, "2", function()
   ):start()
 end)
 
+hs.hotkey.bind({"ctrl", "cmd"}, "0", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 YF_Options..."}):send()
+  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil, -- 我们不需要在任务完成时执行回调函数
+    {"/Users/yanzhang/Coding/Financial_System/Selenium/YF_Options.py"}
+  ):start()
+end)
+
+hs.hotkey.bind({"cmd", "Shift"}, "0", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Options_Change..."}):send()
+  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil, -- 我们不需要在任务完成时执行回调函数
+    {"/Users/yanzhang/Coding/Financial_System/Query/Options_Change.py"}
+  ):start()
+end)
+
 hs.hotkey.bind({"ctrl", "alt"}, "7", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Check_Earning_dup..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
