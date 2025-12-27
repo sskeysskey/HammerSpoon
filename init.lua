@@ -638,15 +638,15 @@ hs.hotkey.bind({"ctrl", "alt"}, "6", function()
     tell application "Terminal"
       activate
       if isRunning then
-        do script "]] .. cmd3 .. [[" in window 1
-        delay 3
+        do script "]] .. cmd3 .. [["
+        delay 2
         do script "]] .. cmd1 .. [[" in window 1
         delay 2
         do script "]] .. cmd2 .. [[" in window 1
       else
         -- 首次激活时会建 window 1
-        do script "]] .. cmd3 .. [[" in window 1
-        delay 1
+        do script "]] .. cmd3 .. [["
+        delay 2
         do script "]] .. cmd1 .. [[" in window 1
         delay 2
         do script "]] .. cmd2 .. [[" in window 1
