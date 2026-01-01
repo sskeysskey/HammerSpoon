@@ -777,29 +777,114 @@ hs.hotkey.bind({"ctrl", "cmd"}, "6", function()
   end
 end)
 
+hs.hotkey.bind({"ctrl"}, "6", function()
+  -- 1. 定义简单的 shell 转义函数
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  -- 2. 发送开始执行的通知
+  hs.notify.new({
+    title = "Analyse_Compare",
+    informativeText = "正在启动脚本序列..."
+  }):send()
+
+  -- 3. 准备路径和命令
+  local home = os.getenv("HOME")
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  local script1 = home .. "/Coding/Financial_System/Query/Analyse_Compare.py"
+  local script2 = home .. "/Coding/Financial_System/Operations/Insert_Earning_auto.py"
+  
+  local cmd1 = pythonPath .. " " .. shellQuote(script1)
+  local cmd2 = pythonPath .. " " .. shellQuote(script2)
+
+  -- 4. 使用 && 将命令串联起来
+  -- 这样 Terminal 会先执行 cmd1，执行完后再自动执行 cmd2
+  local combinedCommand = cmd1 .. " && " .. cmd2
+
+  -- 5. 构建 AppleScript
+  -- 逻辑：检查 Terminal 是否运行，发送单条串联后的命令
+  local appleScript = ([[
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    if isRunning then
+      tell application "Terminal"
+        activate
+        try
+          -- 在新窗口/标签页执行串联命令
+          do script "%s"
+        on error errMsg
+          display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
+        end try
+      end tell
+    else
+      tell application "Terminal"
+        activate
+        try
+          -- 刚启动时，在默认的 window 1 中执行
+          do script "%s" in window 1
+        on error errMsg
+          display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
+        end try
+      end tell
+    end if
+  ]]):format(combinedCommand, combinedCommand)
+
+  -- 6. 执行 AppleScript
+  -- 由于只调用了一次 do script，AppleScript 会在命令发送给 Terminal 后立即返回
+  local ok, result = hs.osascript.applescript(appleScript)
+
+  if not ok then
+    hs.notify.new({
+      title = "Analyse_Compare",
+      informativeText = "调用 Terminal 失败：" .. (result or "unknown")
+    }):send()
+  else
+    -- 注意：这里的“完毕”是指“成功发送给了 Terminal”
+    hs.notify.new({
+      title = "Analyse_Compare",
+      informativeText = "脚本已在 Terminal 中开始运行"
+    }):send()
+  end
+end)
+
 hs.hotkey.bind({"ctrl", "alt"}, "6", function()
+  -- 简单的 shell 转义函数
   local function shellQuote(str)
     return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
   end
 
   hs.notify.new({
     title = "Analyse_season",
-    informativeText = "正在执行 脚本…"
+    informativeText = "正在启动脚本序列..."
   }):send()
 
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local script1 = home .. "/Coding/Financial_System/Query/Analyse_Earning_Season.py"
-  local script2 = home .. "/Coding/Financial_System/Query/Analyse_Earning_no_Season.py"
-  local script3 = home .. "/Coding/Financial_System/Query/Check_OverBuy.py"
+  
+  -- 定义脚本路径
+  local scripts = {
+    home .. "/Coding/Financial_System/Query/Check_OverBuy.py",
+    home .. "/Coding/Financial_System/Query/Analyse_Earning_Season.py",
+    home .. "/Coding/Financial_System/Query/Analyse_Earning_no_Season.py"
+  }
 
-  -- 方式 B：分别下两次 do script（各自独立窗口／标签）
-  local cmd1 = pythonPath .. " " .. shellQuote(script1)
-  local cmd2 = pythonPath .. " " .. shellQuote(script2)
-  local cmd3 = pythonPath .. " " .. shellQuote(script3)
+  -- 将脚本路径转换为 python 执行命令，并存入 table
+  local cmdList = {}
+  for _, s in ipairs(scripts) do
+    table.insert(cmdList, pythonPath .. " " .. shellQuote(s))
+  end
 
-  --[[ ======================= 方式 B：分别两次 do script ======================= ]]
-  local appleB = [[
+  -- 使用 && 串联所有命令。
+  -- 如果你希望脚本之间有固定延迟（像原脚本那样延迟2秒），可以改为：
+  -- local combined = table.concat(cmdList, " && sleep 2 && ")
+  local combined = table.concat(cmdList, " && ")
+
+  -- 构建 AppleScript
+  -- 思路：只调用一次 do script，让 Terminal 内部去处理执行流
+  local appleScript = ([[
     tell application "System Events"
       set isRunning to exists (process "Terminal")
     end tell
@@ -807,33 +892,28 @@ hs.hotkey.bind({"ctrl", "alt"}, "6", function()
     tell application "Terminal"
       activate
       if isRunning then
-        do script "]] .. cmd3 .. [["
-        delay 2
-        do script "]] .. cmd1 .. [[" in window 1
-        delay 2
-        do script "]] .. cmd2 .. [[" in window 1
+        -- 如果终端已打开，新建一个窗口/标签执行，避免干扰当前工作
+        do script "%s"
       else
-        -- 首次激活时会建 window 1
-        do script "]] .. cmd3 .. [["
-        delay 2
-        do script "]] .. cmd1 .. [[" in window 1
-        delay 2
-        do script "]] .. cmd2 .. [[" in window 1
+        -- 如果终端未打开，activate 会创建一个窗口，直接在 window 1 执行
+        do script "%s" in window 1
       end if
     end tell
-  ]]
+  ]]):format(combined, combined)
 
-  local ok, result = hs.osascript.applescript(appleB)
+  -- 执行 AppleScript
+  local ok, result = hs.osascript.applescript(appleScript)
 
   if not ok then
     hs.notify.new({
       title = "Analyse_Earning",
-      informativeText = "执行出错：" .. (result or "unknown")
+      informativeText = "指令发送失败：" .. (result or "unknown")
     }):send()
   else
+    -- 这里的“完毕”仅代表指令成功发送到了终端
     hs.notify.new({
       title = "Analyse_Earning",
-      informativeText = "脚本执行完毕"
+      informativeText = "指令已发送至 Terminal 顺序执行"
     }):send()
   end
 end)
