@@ -918,6 +918,73 @@ hs.hotkey.bind({"ctrl", "alt"}, "6", function()
   end
 end)
 
+hs.hotkey.bind({"cmd", "alt"}, "8", function()
+  -- 简单的 shell 转义函数
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Holiday_Insert",
+    informativeText = "正在启动脚本序列..."
+  }):send()
+
+  local home = os.getenv("HOME")
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  
+  -- 定义脚本路径
+  local scripts = {
+    home .. "/Coding/Financial_System/Backup/TE_Merged.py",
+    home .. "/Coding/Financial_System/Operations/Insert_Holiday.py"
+  }
+
+  -- 将脚本路径转换为 python 执行命令，并存入 table
+  local cmdList = {}
+  for _, s in ipairs(scripts) do
+    table.insert(cmdList, pythonPath .. " " .. shellQuote(s))
+  end
+
+  -- 使用 && 串联所有命令。
+  -- 如果你希望脚本之间有固定延迟（像原脚本那样延迟2秒），可以改为：
+  -- local combined = table.concat(cmdList, " && sleep 2 && ")
+  local combined = table.concat(cmdList, " && ")
+
+  -- 构建 AppleScript
+  -- 思路：只调用一次 do script，让 Terminal 内部去处理执行流
+  local appleScript = ([[
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    tell application "Terminal"
+      activate
+      if isRunning then
+        -- 如果终端已打开，新建一个窗口/标签执行，避免干扰当前工作
+        do script "%s"
+      else
+        -- 如果终端未打开，activate 会创建一个窗口，直接在 window 1 执行
+        do script "%s" in window 1
+      end if
+    end tell
+  ]]):format(combined, combined)
+
+  -- 执行 AppleScript
+  local ok, result = hs.osascript.applescript(appleScript)
+
+  if not ok then
+    hs.notify.new({
+      title = "Holiday_Insert",
+      informativeText = "指令发送失败：" .. (result or "unknown")
+    }):send()
+  else
+    -- 这里的“完毕”仅代表指令成功发送到了终端
+    hs.notify.new({
+      title = "Holiday_Insert",
+      informativeText = "指令已发送至 Terminal 顺序执行"
+    }):send()
+  end
+end)
+
 -- 已经实现了非阻塞的效果。
 hs.hotkey.bind({"ctrl"}, "4", function()
   -- 简单的 shell 转义函数
