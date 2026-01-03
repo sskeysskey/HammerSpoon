@@ -377,6 +377,46 @@ hs.hotkey.bind({"ctrl"}, "3", function()
   end
 end)
 
+hs.hotkey.bind({"ctrl", "cmd"}, "2", function()
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Hammerspoon",
+    informativeText = "正在执行 Insert_Blacklist.py 脚本…"
+  }):send()
+
+  local home = os.getenv("HOME")
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  local scriptPath = home .. "/Coding/Financial_System/Operations/Insert_Blacklist.py"
+  local params = "etf"
+  
+  -- 组合命令
+  local fullCommand = pythonPath
+                      .. " "
+                      .. shellQuote(scriptPath)
+                      .. " "
+                      .. params
+
+  -- 修改后的 AppleScript：直接 do script，强制新窗口
+  local appleScript = [[
+    tell application "Terminal"
+      activate
+      try
+        do script "]] .. fullCommand .. [["
+      on error errMsg number errNum
+        display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
+      end try
+    end tell
+  ]]
+
+  local ok, result, raw = hs.osascript.applescript(appleScript)
+  if not ok then
+    hs.notify.new({title = "执行出错", informativeText = result}):send()
+  end
+end)
+
 -- 抓取新symbol的marketcap等数据
 hs.hotkey.bind({"ctrl", "alt"}, "9", function()
   local function shellQuote(str)
