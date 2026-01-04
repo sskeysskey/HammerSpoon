@@ -371,14 +371,24 @@ hs.hotkey.bind({"ctrl"}, "3", function()
 
   -- 修改后的 AppleScript：直接 do script，强制新窗口
   local appleScript = [[
-    tell application "Terminal"
-      activate
-      try
-        do script "]] .. fullCommand .. [["
-      on error errMsg number errNum
-        display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
-      end try
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
     end tell
+
+    if isRunning then
+      -- 如果 Terminal 正在运行，激活它并新建一个标签页/窗口来执行脚本
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [["
+      end tell
+    else
+      -- 如果 Terminal 没有运行，先激活它（这会启动应用并创建第一个窗口）
+      -- 然后，在那个新建的第一个窗口中执行脚本，以避免打开第二个窗口
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [[" in window 1
+      end tell
+    end if
   ]]
 
   local ok, result, raw = hs.osascript.applescript(appleScript)
@@ -411,14 +421,24 @@ hs.hotkey.bind({"ctrl", "cmd"}, "2", function()
 
   -- 修改后的 AppleScript：直接 do script，强制新窗口
   local appleScript = [[
-    tell application "Terminal"
-      activate
-      try
-        do script "]] .. fullCommand .. [["
-      on error errMsg number errNum
-        display dialog "执行失败: " & errMsg buttons {"OK"} with icon stop
-      end try
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
     end tell
+
+    if isRunning then
+      -- 如果 Terminal 正在运行，激活它并新建一个标签页/窗口来执行脚本
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [["
+      end tell
+    else
+      -- 如果 Terminal 没有运行，先激活它（这会启动应用并创建第一个窗口）
+      -- 然后，在那个新建的第一个窗口中执行脚本，以避免打开第二个窗口
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [[" in window 1
+      end tell
+    end if
   ]]
 
   local ok, result, raw = hs.osascript.applescript(appleScript)
