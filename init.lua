@@ -342,6 +342,34 @@ hs.hotkey.bind({"ctrl", "Shift"}, "W", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
+-- 带参数的scpt脚本运行
+hs.hotkey.bind({"ctrl"}, "N", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 API_News_Sonnet..."}):send()
+
+  -- 使用 osascript -e 动态执行，以保留 AppleScript 的参数结构（特别是 boolean 类型）
+  -- 注意：单引号内包裹的是 AppleScript 代码
+  local scriptCmd = 'run script (POSIX file "/Users/yanzhang/Coding/ScriptEditor/API_News_Sonnet.scpt") with parameters {"", "normal", false}'
+
+  hs.task.new(
+    "/usr/bin/osascript", 
+    nil, 
+    {"-e", scriptCmd}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "N", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 API_News_Sonnet (Force)..."}):send()
+
+  -- 注意这里参数列表中的第三项是 true
+  local scriptCmd = 'run script (POSIX file "/Users/yanzhang/Coding/ScriptEditor/API_News_Sonnet.scpt") with parameters {"", "normal", true}'
+
+  hs.task.new(
+    "/usr/bin/osascript",
+    nil,
+    {"-e", scriptCmd}
+  ):start()
+end)
+
 -- Ctrl+3：在 Terminal 中执行 YF_MarketCapPEShare.py
 -- [无需改动] 此部分使用 hs.osascript.applescript，它本身是阻塞的，
 -- 但它执行的 AppleScript 是让 Terminal.app 去执行一个新命令。
@@ -660,6 +688,56 @@ hs.hotkey.bind({"ctrl"}, ",", function()
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
   local scriptPath = home .. "/Coding/LocalServer/AppServer.py"
+
+  local fullCommand = pythonPath
+                      .. " "
+                      .. shellQuote(scriptPath)
+
+  -- 构造基于您建议的、新的AppleScript逻辑
+  local appleScript = [[
+    -- 使用 "System Events" 来检查 "Terminal" 进程是否存在
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    if isRunning then
+      -- 如果 Terminal 正在运行，激活它并新建一个标签页/窗口来执行脚本
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [["
+      end tell
+    else
+      -- 如果 Terminal 没有运行，先激活它（这会启动应用并创建第一个窗口）
+      -- 然后，在那个新建的第一个窗口中执行脚本，以避免打开第二个窗口
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [[" in window 1
+      end tell
+    end if
+  ]]
+
+  local ok, result, raw = hs.osascript.applescript(appleScript)
+  if not ok then
+    hs.notify.new({
+      title = "Hammerspoon",
+      informativeText = "脚本执行出错: " .. (result or "unknown")
+    }):send()
+  end
+end)
+
+hs.hotkey.bind({"ctrl"}, "0", function()
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Hammerspoon",
+    informativeText = "正在执行 Selenium_Combined.py 脚本…"
+  }):send()
+
+  local home = os.getenv("HOME")
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  local scriptPath = home .. "/Coding/python_code/Selenium_News/Selenium_Combined.py"
 
   local fullCommand = pythonPath
                       .. " "
