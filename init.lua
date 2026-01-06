@@ -144,6 +144,19 @@ hs.hotkey.bind({"ctrl"}, "1", function()
   ):start()
 end)
 
+hs.hotkey.bind({"ctrl", "cmd"}, "2", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在 Insert_Blacklist (ETF模式)..."}):send()
+
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil,
+    {
+      "/Users/yanzhang/Coding/Financial_System/Operations/Insert_Blacklist.py", 
+      "etf" -- 在这里添加了 "etf" 参数
+    }
+  ):start()
+end)
+
 hs.hotkey.bind({"ctrl"}, "'", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在 移动鼠标..."}):send()
   hs.task.new(
@@ -250,6 +263,13 @@ end)
 hs.hotkey.bind({"alt", "cmd"}, "P", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_doubao.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_doubao.scpt"
+  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl"}, "F", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_Sector.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Insert_Sector.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
@@ -399,56 +419,6 @@ hs.hotkey.bind({"ctrl"}, "3", function()
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
   local scriptPath = home .. "/Coding/Financial_System/Selenium/YF_MarketCapPEShare.py"
   local params = "--mode normal"
-  
-  -- 组合命令
-  local fullCommand = pythonPath
-                      .. " "
-                      .. shellQuote(scriptPath)
-                      .. " "
-                      .. params
-
-  -- 修改后的 AppleScript：直接 do script，强制新窗口
-  local appleScript = [[
-    tell application "System Events"
-      set isRunning to exists (process "Terminal")
-    end tell
-
-    if isRunning then
-      -- 如果 Terminal 正在运行，激活它并新建一个标签页/窗口来执行脚本
-      tell application "Terminal"
-        activate
-        do script "]] .. fullCommand .. [["
-      end tell
-    else
-      -- 如果 Terminal 没有运行，先激活它（这会启动应用并创建第一个窗口）
-      -- 然后，在那个新建的第一个窗口中执行脚本，以避免打开第二个窗口
-      tell application "Terminal"
-        activate
-        do script "]] .. fullCommand .. [[" in window 1
-      end tell
-    end if
-  ]]
-
-  local ok, result, raw = hs.osascript.applescript(appleScript)
-  if not ok then
-    hs.notify.new({title = "执行出错", informativeText = result}):send()
-  end
-end)
-
-hs.hotkey.bind({"ctrl", "cmd"}, "2", function()
-  local function shellQuote(str)
-    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
-  end
-
-  hs.notify.new({
-    title = "Hammerspoon",
-    informativeText = "正在执行 Insert_Blacklist.py 脚本…"
-  }):send()
-
-  local home = os.getenv("HOME")
-  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local scriptPath = home .. "/Coding/Financial_System/Operations/Insert_Blacklist.py"
-  local params = "etf"
   
   -- 组合命令
   local fullCommand = pythonPath
