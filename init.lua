@@ -35,6 +35,16 @@ hs.hotkey.bind({"ctrl", "cmd"}, "7", function()
   ):start()
 end)
 
+hs.hotkey.bind({"ctrl", "alt"}, "\\", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Imigrate_new_exist.py..."}):send()
+  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil, -- 我们不需要在任务完成时执行回调函数
+    {"/Users/yanzhang/Coding/Financial_System/Operations/Imigrate_new_exist.py"}
+  ):start()
+end)
+
 hs.hotkey.bind({"ctrl"}, "9", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Screener/Filter..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
