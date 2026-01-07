@@ -45,16 +45,6 @@ hs.hotkey.bind({"ctrl", "alt"}, "\\", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl"}, "9", function()
-  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Screener/Filter..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
-  hs.task.new(
-    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
-    {"/Users/yanzhang/Coding/Financial_System/JavaScript/Screener/Filter.py"}
-  ):start()
-end)
-
 hs.hotkey.bind({"ctrl", "cmd"}, "9", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_History_Data.py..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
@@ -570,6 +560,55 @@ hs.hotkey.bind({"ctrl", "cmd"}, "0", function()
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
   local scriptPath = home .. "/Coding/Financial_System/Selenium/YF_Options.py"
+
+  local fullCommand = pythonPath
+                      .. " "
+                      .. shellQuote(scriptPath)
+
+  -- 构造要喂给 osascript 的 AppleScript
+  local appleScript = [[
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    if isRunning then
+      -- 如果 Terminal 正在运行，激活它并新建一个标签页/窗口来执行脚本
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [["
+      end tell
+    else
+      -- 如果 Terminal 没有运行，先激活它（这会启动应用并创建第一个窗口）
+      -- 然后，在那个新建的第一个窗口中执行脚本，以避免打开第二个窗口
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [[" in window 1
+      end tell
+    end if
+  ]]
+
+  local ok, result, raw = hs.osascript.applescript(appleScript)
+  if not ok then
+    hs.notify.new({
+      title = "Hammerspoon",
+      informativeText = "脚本执行出错: " .. (result or "unknown")
+    }):send()
+  end
+end)
+
+hs.hotkey.bind({"ctrl"}, "9", function()
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Hammerspoon",
+    informativeText = "正在执行 Filter 脚本…"
+  }):send()
+
+  local home = os.getenv("HOME")
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  local scriptPath = home .. "/Coding/Financial_System/JavaScript/Screener/Filter.py"
 
   local fullCommand = pythonPath
                       .. " "
