@@ -243,9 +243,16 @@ hs.hotkey.bind({"ctrl", "alt"}, "Q", function()
 end)
 
 -- 运行某个AppleScript代码
-hs.hotkey.bind({"ctrl", "alt"}, "P", function()
+hs.hotkey.bind({"ctrl", "alt"}, "O", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 API_Trans.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/API_Trans_small.scpt"
+  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "P", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_small.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Doubao_small.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
@@ -285,9 +292,30 @@ hs.hotkey.bind({"ctrl"}, "M", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "0", function()
+hs.hotkey.bind({"Shift", "cmd"}, "0", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_Title.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/API_Trans_Title.scpt"
+  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "0", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_Title.scpt.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Doubao_Title.scpt"
+  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl"}, "=", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_SRT.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Doubao_SRT.scpt"
+  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "=", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_SRT_Auto.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Doubao_SRT_Auto.scpt"
   -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
@@ -382,6 +410,34 @@ hs.hotkey.bind({"ctrl", "alt"}, "N", function()
 
   -- 注意这里参数列表中的第三项是 true
   local scriptCmd = 'run script (POSIX file "/Users/yanzhang/Coding/ScriptEditor/API_News_Sonnet.scpt") with parameters {"", "normal", true}'
+
+  hs.task.new(
+    "/usr/bin/osascript",
+    nil,
+    {"-e", scriptCmd}
+  ):start()
+end)
+
+-- 带参数的scpt脚本运行
+hs.hotkey.bind({"ctrl"}, "H", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_News..."}):send()
+
+  -- 使用 osascript -e 动态执行，以保留 AppleScript 的参数结构（特别是 boolean 类型）
+  -- 注意：单引号内包裹的是 AppleScript 代码
+  local scriptCmd = 'run script (POSIX file "/Users/yanzhang/Coding/ScriptEditor/Doubao_News.scpt") with parameters {"", "normal", false}'
+
+  hs.task.new(
+    "/usr/bin/osascript", 
+    nil, 
+    {"-e", scriptCmd}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "H", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_News (Force)..."}):send()
+
+  -- 注意这里参数列表中的第三项是 true
+  local scriptCmd = 'run script (POSIX file "/Users/yanzhang/Coding/ScriptEditor/Doubao_News.scpt") with parameters {"", "normal", true}'
 
   hs.task.new(
     "/usr/bin/osascript",
