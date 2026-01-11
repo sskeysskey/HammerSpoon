@@ -95,6 +95,36 @@ hs.hotkey.bind({"ctrl"}, "L", function()
   ):start()
 end)
 
+hs.hotkey.bind({"ctrl", "alt"}, "3", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Fix_MarketcapPEPB..."}):send()
+  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil, -- 我们不需要在任务完成时执行回调函数
+    {"/Users/yanzhang/Coding/Financial_System/Query/Fix_MarketcapPEPB.py"}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl"}, "V", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_Desc_Stock..."}):send()
+  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil, -- 我们不需要在任务完成时执行回调函数
+    {"/Users/yanzhang/Coding/Financial_System/Operations/Insert_Desc_Stock.py"}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "V", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_Desc_ETFs..."}):send()
+  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil, -- 我们不需要在任务完成时执行回调函数
+    {"/Users/yanzhang/Coding/Financial_System/Operations/Insert_Desc_ETFs.py"}
+  ):start()
+end)
+
 hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Editor_Tags..."}):send()
   -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
@@ -391,7 +421,7 @@ hs.hotkey.bind({"ctrl", "Shift"}, "W", function()
 end)
 
 -- 带参数的scpt脚本运行
-hs.hotkey.bind({"ctrl"}, "N", function()
+hs.hotkey.bind({"ctrl"}, "H", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 API_News_Sonnet..."}):send()
 
   -- 使用 osascript -e 动态执行，以保留 AppleScript 的参数结构（特别是 boolean 类型）
@@ -405,7 +435,7 @@ hs.hotkey.bind({"ctrl"}, "N", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "N", function()
+hs.hotkey.bind({"ctrl", "alt"}, "H", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 API_News_Sonnet (Force)..."}):send()
 
   -- 注意这里参数列表中的第三项是 true
@@ -419,7 +449,7 @@ hs.hotkey.bind({"ctrl", "alt"}, "N", function()
 end)
 
 -- 带参数的scpt脚本运行
-hs.hotkey.bind({"ctrl"}, "H", function()
+hs.hotkey.bind({"ctrl"}, "N", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_News..."}):send()
 
   -- 使用 osascript -e 动态执行，以保留 AppleScript 的参数结构（特别是 boolean 类型）
@@ -433,7 +463,7 @@ hs.hotkey.bind({"ctrl"}, "H", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "H", function()
+hs.hotkey.bind({"ctrl", "alt"}, "N", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_News (Force)..."}):send()
 
   -- 注意这里参数列表中的第三项是 true
@@ -465,6 +495,56 @@ hs.hotkey.bind({"ctrl"}, "3", function()
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
   local scriptPath = home .. "/Coding/Financial_System/Selenium/YF_MarketCapPEShare.py"
   local params = "--mode normal"
+  
+  -- 组合命令
+  local fullCommand = pythonPath
+                      .. " "
+                      .. shellQuote(scriptPath)
+                      .. " "
+                      .. params
+
+  -- 修改后的 AppleScript：直接 do script，强制新窗口
+  local appleScript = [[
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    if isRunning then
+      -- 如果 Terminal 正在运行，激活它并新建一个标签页/窗口来执行脚本
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [["
+      end tell
+    else
+      -- 如果 Terminal 没有运行，先激活它（这会启动应用并创建第一个窗口）
+      -- 然后，在那个新建的第一个窗口中执行脚本，以避免打开第二个窗口
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [[" in window 1
+      end tell
+    end if
+  ]]
+
+  local ok, result, raw = hs.osascript.applescript(appleScript)
+  if not ok then
+    hs.notify.new({title = "执行出错", informativeText = result}):send()
+  end
+end)
+
+hs.hotkey.bind({"ctrl", "cmd"}, "3", function()
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Hammerspoon",
+    informativeText = "正在执行 YF_MarketCapPEShare 脚本…"
+  }):send()
+
+  local home = os.getenv("HOME")
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  local scriptPath = home .. "/Coding/Financial_System/Selenium/YF_MarketCapPEShare.py"
+  local params = "--mode empty --clear"
   
   -- 组合命令
   local fullCommand = pythonPath
@@ -1203,6 +1283,69 @@ hs.hotkey.bind({"cmd", "alt"}, "8", function()
     -- 这里的“完毕”仅代表指令成功发送到了终端
     hs.notify.new({
       title = "Holiday_Insert",
+      informativeText = "指令已发送至 Terminal 顺序执行"
+    }):send()
+  end
+end)
+
+-- 快捷键 Shift + Cmd + 8: 依次运行 Insert_Weekend 和 YF_PriceVolume
+hs.hotkey.bind({"shift", "cmd"}, "8", function()
+  -- 简单的 shell 转义函数
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Weekend Processing",
+    informativeText = "正在启动周末数据处理序列..."
+  }):send()
+
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  
+  -- 定义脚本路径和参数
+  -- 1. Insert_Weekend.py
+  local script1 = "/Users/yanzhang/Coding/Financial_System/Operations/Insert_Weekend.py"
+  local cmd1 = pythonPath .. " " .. shellQuote(script1)
+
+  -- 2. YF_PriceVolume.py (带参数 --mode empty --weekend)
+  local script2 = "/Users/yanzhang/Coding/Financial_System/Selenium/YF_PriceVolume.py"
+  local params2 = "--mode empty --weekend"
+  local cmd2 = pythonPath .. " " .. shellQuote(script2) .. " " .. params2
+
+  -- 使用 && 将两个命令串联
+  -- 只有当前一个脚本执行成功（exit code 0）时，才会执行下一个
+  local combinedCommand = cmd1 .. " && " .. cmd2
+
+  -- 构建 AppleScript
+  -- 逻辑：让 Terminal 去执行串联好的长命令
+  local appleScript = ([[
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    tell application "Terminal"
+      activate
+      if isRunning then
+        -- 如果终端已打开，新建一个窗口/标签执行，避免干扰当前工作
+        do script "%s"
+      else
+        -- 如果终端未打开，activate 会自动创建一个窗口，直接在 window 1 执行
+        do script "%s" in window 1
+      end if
+    end tell
+  ]]):format(combinedCommand, combinedCommand)
+
+  -- 执行 AppleScript
+  local ok, result = hs.osascript.applescript(appleScript)
+  
+  if not ok then
+    hs.notify.new({
+      title = "执行出错",
+      informativeText = "指令发送失败：" .. (result or "unknown")
+    }):send()
+  else
+    hs.notify.new({
+      title = "Weekend Processing",
       informativeText = "指令已发送至 Terminal 顺序执行"
     }):send()
   end
