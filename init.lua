@@ -17,140 +17,180 @@ end)
 -- 运行某个Python代码
 hs.hotkey.bind({"ctrl"}, "/", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Split2DB..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Operations/Update_Split2DB.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "cmd"}, "7", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Analyse_Options..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Query/Analyse_Options.py"}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl", "cmd"}, "8", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Check_yesterday..."}):send()
+  
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil,
+    {"/Users/yanzhang/Coding/Financial_System/Query/Check_yesterday.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "\\", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Imigrate_new_exist.py..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Operations/Imigrate_new_exist.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "cmd"}, "9", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_History_Data.py..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/JavaScript/HistoryData/Insert_History_Data.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "7", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Check_Earning_dup..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Query/Check_Earning_dup.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "Shift"}, "Q", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 search similar tag..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Query/Search_Similar_Tag.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "cmd"}, "Z", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert panel.json"}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Operations/Insert_Panel.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "L", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Prompt_Creator..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/python_code/Prompt_Creator.py"}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl"}, "G", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 split_TXT..."}):send()
+  
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil,
+    {"/Users/yanzhang/Coding/python_code/split_TXT.py"}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "K", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_Desc_Manual.py..."}):send()
+  
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil,
+    {"/Users/yanzhang/Coding/Financial_System/Operations/Insert_Desc_Manual.py.py"}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl", "cmd"}, "K", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_Desc_null_Stock..."}):send()
+  
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil,
+    {"/Users/yanzhang/Coding/Financial_System/Operations/Insert_Desc_null_Stock.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "3", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Fix_MarketcapPEPB..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Query/Fix_MarketcapPEPB.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "V", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_Desc_Stock..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Operations/Insert_Desc_Stock.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "V", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_Desc_ETFs..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Operations/Insert_Desc_ETFs.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Editor_Tags..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Operations/Editor_Tags.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"alt", "cmd"}, "Z", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在打开 Earning_Similar..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Query/Check_Earning_Similar.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "A", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在打开 tags_weights..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Operations/Editor_tags_weight.py"}
   ):start()
 end)
@@ -188,20 +228,20 @@ end)
 
 hs.hotkey.bind({"ctrl"}, "E", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Options_Monitor..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Query/Check_Options.py"}
   ):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "E", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Editor_Blacklist..."}):send()
-  -- 第一个参数是可执行文件路径，第三个参数是包含脚本路径和其他参数的 table
+  
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
-    nil, -- 我们不需要在任务完成时执行回调函数
+    nil,
     {"/Users/yanzhang/Coding/Financial_System/Operations/Editor_Blacklist.py"}
   ):start()
 end)
@@ -212,6 +252,15 @@ hs.hotkey.bind({"ctrl"}, "D", function()
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
     nil,
     {"/Users/yanzhang/Coding/Financial_System/Operations/Insert_Earning_auto.py"}
+  ):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "I", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在打开Chart_Earning界面..."}):send()
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil,
+    {"/Users/yanzhang/Coding/Financial_System/Query/Chart_Earning.py"}
   ):start()
 end)
 
@@ -256,7 +305,17 @@ hs.hotkey.bind({"ctrl", "alt"}, "W", function()
   
   -- 要传递给 AppleScript 脚本的参数
   local pythonScriptParameter = "/Users/yanzhang/Coding/Financial_System/Operations/Editor_Earning_DB.py"
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath, pythonScriptParameter}):start()
+end)
 
+hs.hotkey.bind({"ctrl", "cmd"}, "D", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_Earning_Manual 脚本..."}):send()
+
+  -- 要执行的 AppleScript 脚本路径
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Insert_PythonFile.scpt"
+  
+  -- 要传递给 AppleScript 脚本的参数
+  local pythonScriptParameter = "/Users/yanzhang/Coding/Financial_System/Operations/Insert_Earning_Manual.py"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath, pythonScriptParameter}):start()
 end)
 
@@ -268,7 +327,6 @@ hs.hotkey.bind({"ctrl", "alt"}, "Q", function()
   
   -- 要传递给 AppleScript 脚本的参数
   local pythonScriptParameter = "/Users/yanzhang/Coding/Financial_System/Operations/Editor_Events.py"
-
   hs.task.new("/usr/bin/osascript", nil, {scriptPath, pythonScriptParameter}):start()
 end)
 
@@ -276,105 +334,175 @@ end)
 hs.hotkey.bind({"ctrl", "alt"}, "O", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 API_Trans.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/API_Trans_small.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "P", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_small.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Doubao_small.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"alt", "cmd"}, "P", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_doubao.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_doubao.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "U", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Check_Earning.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Check_Earning.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "F", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Insert_Sector.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Insert_Sector.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "F", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Delete_name.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Delete_name.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, ";", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 karing 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Karing1.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, ";", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 singbox 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/singbox.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "M", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Googlemap_input 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Googlemap_input.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"Shift", "cmd"}, "0", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_Title.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/API_Trans_Title.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "cmd"}, "S", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Show_Description.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Show_Description.scpt"
+  
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "0", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_Title.scpt.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Doubao_Title.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl"}, "-", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_SRT_Sonnet.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_SRT_Sonnet.scpt"
+  
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "-", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Trans_SRT_Sonnet_Auto.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Trans_SRT_Sonnet_Auto.scpt"
+  
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl"}, "=", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_SRT.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Doubao_SRT.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "=", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubao_SRT_Auto.scpt 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Doubao_SRT_Auto.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "cmd"}, "A", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Stock_DB.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Stock_DB.scpt"
+  
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "1", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Ask_Stock_info.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Ask_Stock_info.scpt"
+  
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "alt"}, "2", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Ask_ETF_info.scpt 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Ask_ETF_info.scpt"
+  
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"alt", "cmd"}, "[", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Restore270 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Restore270.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"alt", "cmd"}, "]", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Restore90 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Restore90.scpt"
+  
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl", "cmd"}, "[", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 270_90 脚本..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/270_90.scpt"
+  
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"alt", "cmd"}, "X", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Baiducall 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Baidu_Call.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"alt", "cmd"}, "S", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Doubaocall 脚本..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Doubao_Call.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
 hs.hotkey.bind({"alt", "ctrl"}, "L", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行Find Code..."}):send()
   local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Find_Code.scpt"
-  -- 使用 hs.task 异步执行 AppleScript
+  
+  hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
+end)
+
+hs.hotkey.bind({"ctrl"}, "Z", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行查询富途..."}):send()
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Stock_CheckFutu.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
@@ -384,9 +512,9 @@ hs.hotkey.bind({"ctrl", "Shift"}, "Z", function()
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
-hs.hotkey.bind({"ctrl"}, "Z", function()
+hs.hotkey.bind({"ctrl"}, "U", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行查询富途..."}):send()
-  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Stock_CheckFutu.scpt"
+  local scriptPath = "/Users/yanzhang/Coding/ScriptEditor/Clipboard_count.scpt"
   hs.task.new("/usr/bin/osascript", nil, {scriptPath}):start()
 end)
 
@@ -1036,7 +1164,7 @@ hs.hotkey.bind({"ctrl", "cmd"}, "6", function()
   end
 
   hs.notify.new({
-    title = "Backup_syncing",
+    title = "正在执行",
     informativeText = "正在执行 脚本…"
   }):send()
 
@@ -1074,7 +1202,7 @@ hs.hotkey.bind({"ctrl", "cmd"}, "6", function()
   local ok, result, raw = hs.osascript.applescript(appleScript)
   if not ok then
     hs.notify.new({
-      title = "backup_syncing",
+      title = "脚本出错",
       informativeText = "脚本执行出错: " .. (result or "unknown")
     }):send()
   end
@@ -1169,7 +1297,7 @@ hs.hotkey.bind({"ctrl", "alt"}, "6", function()
   
   -- 定义脚本路径
   local scripts = {
-    home .. "/Coding/Financial_System/Query/Check_OverBuy.py",
+    home .. "/Coding/Financial_System/Query/Analyse_OverBuy.py",
     home .. "/Coding/Financial_System/Query/Analyse_Earning_Season.py",
     home .. "/Coding/Financial_System/Query/Analyse_Earning_no_Season.py"
   }
@@ -1415,6 +1543,110 @@ hs.hotkey.bind({"ctrl"}, "4", function()
   end
 end)
 
+-- 运行 whisper_mlx_auto.py
+hs.hotkey.bind({"ctrl"}, "]", function()
+  -- 定义简单的 shell 转义函数 (和你其他代码保持一致)
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Hammerspoon",
+    informativeText = "正在执行 whisper_mlx_auto 脚本..."
+  }):send()
+
+  -- 定义路径
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  local scriptPath = "/Users/yanzhang/Coding/python_code/Video/whisper_mlx_auto.py"
+
+  -- 组合命令
+  local fullCommand = pythonPath .. " " .. shellQuote(scriptPath)
+
+  -- 构造 AppleScript
+  -- 逻辑：检查 Terminal 进程是否存在
+  -- 1. 如果存在：激活并新建窗口/标签页运行 (do script)
+  -- 2. 如果不存在：启动应用并在默认创建的第一个窗口运行 (do script ... in window 1)
+  local appleScript = [[
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    if isRunning then
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [["
+      end tell
+    else
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [[" in window 1
+      end tell
+    end if
+  ]]
+
+  -- 执行 AppleScript
+  local ok, result = hs.osascript.applescript(appleScript)
+
+  if not ok then
+    hs.notify.new({
+      title = "执行出错",
+      informativeText = result or "未知错误"
+    }):send()
+  end
+end)
+
+-- 运行 whisper_mlx_manual.py
+hs.hotkey.bind({"ctrl", "alt"}, "]", function()
+  -- 定义简单的 shell 转义函数 (和你其他代码保持一致)
+  local function shellQuote(str)
+    return "'" .. tostring(str):gsub("'", "'\\''") .. "'"
+  end
+
+  hs.notify.new({
+    title = "Hammerspoon",
+    informativeText = "正在执行 whisper_mlx_manual 脚本..."
+  }):send()
+
+  -- 定义路径
+  local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
+  local scriptPath = "/Users/yanzhang/Coding/python_code/Video/whisper_mlx_manual.py"
+
+  -- 组合命令
+  local fullCommand = pythonPath .. " " .. shellQuote(scriptPath)
+
+  -- 构造 AppleScript
+  -- 逻辑：检查 Terminal 进程是否存在
+  -- 1. 如果存在：激活并新建窗口/标签页运行 (do script)
+  -- 2. 如果不存在：启动应用并在默认创建的第一个窗口运行 (do script ... in window 1)
+  local appleScript = [[
+    tell application "System Events"
+      set isRunning to exists (process "Terminal")
+    end tell
+
+    if isRunning then
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [["
+      end tell
+    else
+      tell application "Terminal"
+        activate
+        do script "]] .. fullCommand .. [[" in window 1
+      end tell
+    end if
+  ]]
+
+  -- 执行 AppleScript
+  local ok, result = hs.osascript.applescript(appleScript)
+
+  if not ok then
+    hs.notify.new({
+      title = "执行出错",
+      informativeText = result or "未知错误"
+    }):send()
+  end
+end)
+
 -- 已经实现了非阻塞的效果。
 hs.hotkey.bind({"ctrl"}, "5", function()
   -- 简单的 shell 转义函数
@@ -1442,7 +1674,6 @@ hs.hotkey.bind({"ctrl"}, "5", function()
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_website.sh"),
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_android.sh"),
     "bash -lc " .. shellQuote(home .. "/Coding/sh/github_sync_LocalServer.sh"),
-    -- 新增：Backup_Syncing.py
   }
 
   -- 用 && 串联成一个复合命令
