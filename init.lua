@@ -1365,7 +1365,7 @@ hs.hotkey.bind({"cmd", "alt"}, "8", function()
   
   -- 定义脚本路径
   local scripts = {
-    home .. "/Coding/Financial_System/Backup/TE_Merged.py",
+    home .. "/Coding/Financial_System/Selenium/TE_Merged.py",
     home .. "/Coding/Financial_System/Operations/Insert_Holiday.py"
   }
 
