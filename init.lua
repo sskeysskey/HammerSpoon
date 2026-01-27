@@ -255,7 +255,7 @@ hs.hotkey.bind({"ctrl"}, "D", function()
   ):start()
 end)
 
-hs.hotkey.bind({"ctrl", "alt"}, "I", function()
+hs.hotkey.bind({"ctrl"}, "I", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在打开Chart_Earning界面..."}):send()
   hs.task.new(
     "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
