@@ -1299,7 +1299,8 @@ hs.hotkey.bind({"ctrl", "alt"}, "6", function()
   local scripts = {
     home .. "/Coding/Financial_System/Query/Analyse_OverBuy.py",
     home .. "/Coding/Financial_System/Query/Analyse_Earning_Season.py",
-    home .. "/Coding/Financial_System/Query/Analyse_Earning_no_Season.py"
+    home .. "/Coding/Financial_System/Query/Analyse_Earning_no_Season.py",
+    home .. "/Coding/Financial_System/Query/Analyse_Earning_Volume.py"
   }
 
   -- 将脚本路径转换为 python 执行命令，并存入 table
