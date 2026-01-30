@@ -25,6 +25,16 @@ hs.hotkey.bind({"ctrl"}, "/", function()
   ):start()
 end)
 
+hs.hotkey.bind({"ctrl"}, "J", function()
+  hs.notify.new({title="Hammerspoon", informativeText="正在执行 Split2DB..."}):send()
+  
+  hs.task.new(
+    "/Library/Frameworks/Python.framework/Versions/Current/bin/python3",
+    nil,
+    {"/Users/yanzhang/Coding/Financial_System/Query/Show_Earning_History.py"}
+  ):start()
+end)
+
 hs.hotkey.bind({"ctrl", "cmd"}, "7", function()
   hs.notify.new({title="Hammerspoon", informativeText="正在执行 Analyse_Options..."}):send()
   
