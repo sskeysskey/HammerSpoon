@@ -1233,8 +1233,8 @@ hs.hotkey.bind({"ctrl"}, "6", function()
   -- 3. 准备路径和命令
   local home = os.getenv("HOME")
   local pythonPath = "/Library/Frameworks/Python.framework/Versions/Current/bin/python3"
-  local script1 = home .. "/Coding/Financial_System/Query/Analyse_Compare.py"
-  local script2 = home .. "/Coding/Financial_System/Operations/Insert_Earning_auto.py"
+  local script1 = home .. "/Coding/Financial_System/Operations/Insert_Earning_auto.py"
+  local script2 = home .. "/Coding/Financial_System/Query/Analyse_Compare.py"
   
   local cmd1 = pythonPath .. " " .. shellQuote(script1)
   local cmd2 = pythonPath .. " " .. shellQuote(script2)
